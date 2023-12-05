@@ -1,0 +1,49 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}ALL ITEMS{% endblock %}
+{% block CssJs %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const context = {
+            'STRIPE_PUBLIC_KEY': '{{ STRIPE_PUBLIC_KEY }}',
+            'url': '{{ url }}',
+        };
+    </script>
+    <script src="{% static 'stripe/js/buylist.js' %}" defer></script>
+    <script src="{% static 'stripe/js/order.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div id="container" class="row">
+            {% csrf_token %}
+            {% if items %}
+                {% for item in items %}
+                    <section class="d-flex justify-content-center ">
+                        <div class="col-md-4 product">
+                            <img class="w-50 h-50" src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                            <div class="description">
+                                <h3>{{ item.name }}</h3>
+                                <h5 class="col">${{ item.price }}</h5>
+                                <button class="col" type="submit" id="order-delete" value="{{ item.id }}">Удалить из корзины</button>
+                            </div>
+                        </div>
+                    </section>
+                {% endfor %}
+
+                <div class="description">
+                    <button class="col" type="submit" id="checklist" value="{{ url }}">Оплатить</button>
+                </div>
+
+            {% else %}
+                <section class="d-flex justify-content-center ">
+                    <div class="col-md-4 product">
+                        <p class="pb-1">Корзина пуста.</p>
+                    </div>
+                </section>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block title %}Accept a payment{% endblock %}
+{% block CssJs %}
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const context = {
+            'STRIPE_PUBLIC_KEY': '{{ STRIPE_PUBLIC_KEY }}',
+            'url': '{{ url }}',
+        };
+    </script>
+    <script src="{% static 'stripe/js/checkout.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div id="checkout" class="">
+            <section>
+                <div class="d-flex justify-content-center product">
+                    {% csrf_token %}
+                    <img class='' src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                    <div class="description">
+                        <h3>{{ item.name }}</h3>
+                        <h5 class="col-2">${{ item.price }}</h5>
+                        <button class="col" type="submit" id="checkout-button">Купить</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+{% endblock %}
+
+
+
+{#<script>#}
+{#    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;#}
+{#    var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');#}
+{#    var checkoutButton = document.getElementById('checkout-button');#}
+{##}
+{#    checkoutButton.addEventListener('click', function() {#}
+{#        fetch("{% url 'buy' item.id %}",{#}
+{#            method: 'GET',#}
+{#            headers: {#}
+{#                'X-CSRFToken': csrftoken#}
+{#            }#}
+{#        })#}
+{#            .then(function(response) {#}
+{#                return response.json();#}
+{#            })#}
+{#            .then(function(data) {#}
+{#                stripe.redirectToCheckout({#}
+{#                    sessionId: data.id#}
+{#                })#}
+{#                    .then(function(result) {#}
+{#                        // If `redirectToCheckout` fails due to a browser or network#}
+{#                        // error, you should display the localized error message to your#}
+{#                        // customer using `result.error.message`.#}
+{#                    });#}
+{#            });#}
+{#    });#}
+{#</script>#}

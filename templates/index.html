@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Test Case Stripe{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}"/>
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="{% static 'stripe/js/price.js' %}"></script>
+    {%  block CssJs %} {% endblock %}
+</head>
+
+<body class="d-flex flex-column min-vh-100">
+
+<header class="accordion-header p-3 text-bg-dark">
+    {% include "header.html" %}
+</header>
+
+{% block modal %}
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Информационное окно</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="text-modal">Привет! Это модальное окно.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="m-auto text-dark">
+        <p class="fs-3">TEST CASE STRIPE</p>
+        <div class="">
+            Реализовать Django + Stripe API бэкенд со следующим функционалом и условиями:
+            <div>&#9989<span class="fw-bold">1)</span> Django Модель Item с полями (name, description, price) </div>
+            <div>&#9989<span class="fw-bold">2)</span> GET /buy/{id}, c помощью которого можно получить Stripe Session Id для оплаты выбранного Item.
+                <br>При выполнении этого метода c бэкенда с помощью python библиотеки stripe должен выполняться
+                <br>запрос stripe.checkout.Session.create(...) и полученный session.id выдаваться в результате запроса
+            </div>
+            <div>&#9989<span class="fw-bold">3)</span> GET /item/{id}, c помощью которого можно получить простейшую HTML страницу, на которой будет информация о выбранном Item
+                <br>и кнопка Buy. По нажатию на кнопку Buy должен происходить запрос на /buy/{id}, получение session_id и далее
+                <br>с помощью JS библиотеки Stripe происходить редирект на Checkout форму stripe.redirectToCheckout(sessionId=session_id)
+            </div>
+            <div>&#9989<span class="fw-bold">4)</span> Запуск используя Docker</div>
+            <div>&#9989<span class="fw-bold">5)</span> Использование environment variables</div>
+            <div>&#9989<span class="fw-bold">6)</span> Просмотр Django Моделей в Django Admin панели</div>
+            <div>&#9989<span class="fw-bold">7)</span> Модель Order, в которой можно объединить несколько Item и сделать
+                <br>платёж в Stripe на содержимое Order c общей стоимостью всех Items</div>
+            <div>&#10060<span class="fw-bold">8)</span> Модели Discount, Tax, которые можно прикрепить к модели Order и связать с соответствующими атрибутами при создании платежа
+                <br>в Stripe - в таком случае они корректно отображаются в Stripe Checkout форме.</div>
+            <div>&#10060<span class="fw-bold">9)</span> Добавить поле Item.currency, создать 2 Stripe Keypair на две разные валюты и в
+                <br>зависимости от валюты выбранного товара предлагать оплату в соответствующей валюте</div>
+            <div>&#10060<span class="fw-bold">10)</span> Реализовать не Stripe Session, а Stripe Payment Intent.</div>
+            <div>&#10060<span class="fw-bold">11)</span> Запуск приложения на удаленном сервере, доступном для тестирования</div>
+        </div>
+    </div>
+{% endblock %}
+
+<footer class="footer mt-auto py-3 bg-body-tertiary">
+    {% include "footer.html" %}
+</footer>
+
+</body>
+</html>
