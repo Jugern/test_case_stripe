@@ -20,28 +20,28 @@
             {% csrf_token %}
             {% if items %}
                 {% for item in items %}
-                    <section class="d-flex justify-content-center ">
+                    <section class="col-xl-5 m-3 d-flex justify-content-between ">
                         <div class="col-md-4 product">
-                            <img class="w-50 h-50" src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                            <img class="" src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
                             <div class="description">
                                 <h3>{{ item.name }}</h3>
                                 <h5 class="col">${{ item.price }}</h5>
-                                <button class="col" type="submit" id="order-delete" value="{{ item.id }}">Удалить из корзины</button>
+                                <button class="rounded-3 col" type="submit" id="order-delete" value="{{ item.id }}">Удалить из корзины</button>
                             </div>
                         </div>
                     </section>
                 {% endfor %}
 
-                <div class="description">
-                    <button class="col" type="submit" id="checklist" value="{{ url }}">Оплатить</button>
+                <div class="d-flex justify-content-between">
+                    <button class="rounded-3 col bg-success text-light" type="submit" id="checklist" value="{{ url }}">Оплатить</button>
                 </div>
 
             {% else %}
-                <section class="d-flex justify-content-center ">
-                    <div class="col-md-4 product">
-                        <p class="pb-1">Корзина пуста.</p>
+                <div class="m-5 d-flex justify-content-center ">
+                    <div class="rounded-3 m-auto bg-dark col-md-4 product">
+                        <p class="text-light m-auto p-2 text-center  pb-3">Корзина пуста.</p>
                     </div>
-                </section>
+                </div>
             {% endif %}
         </div>
     </div>

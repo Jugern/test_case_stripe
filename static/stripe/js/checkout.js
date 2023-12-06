@@ -23,27 +23,4 @@ checkoutButton.addEventListener('click', function() {
 
 
 
-const orderButton = document.getElementById('checklist');
-
-orderButton.addEventListener('click', function() {
-    console.log(context['url'])
-    fetch(context['url'],{
-        method: 'GET',
-        headers: {
-            'X-CSRFToken': csrftoken
-        }
-    })
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(data) {
-            console.log(data)
-            // stripe.redirectToCheckout({
-            //     sessionId: data.id
-            // })
-            //     .then(function(result) {
-            //     });
-        });
-});
-
 

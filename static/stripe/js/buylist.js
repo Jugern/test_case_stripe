@@ -3,7 +3,6 @@ var stripe = Stripe(context['STRIPE_PUBLIC_KEY']);
 const orderButton = document.getElementById('checklist');
 
 orderButton.addEventListener('click', function() {
-    console.log(context['url'])
     fetch(context['url'],{
         method: 'GET',
         headers: {

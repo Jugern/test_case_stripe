@@ -31,32 +31,3 @@
     </div>
 {% endblock %}
 
-
-
-{#<script>#}
-{#    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;#}
-{#    var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');#}
-{#    var checkoutButton = document.getElementById('checkout-button');#}
-{##}
-{#    checkoutButton.addEventListener('click', function() {#}
-{#        fetch("{% url 'buy' item.id %}",{#}
-{#            method: 'GET',#}
-{#            headers: {#}
-{#                'X-CSRFToken': csrftoken#}
-{#            }#}
-{#        })#}
-{#            .then(function(response) {#}
-{#                return response.json();#}
-{#            })#}
-{#            .then(function(data) {#}
-{#                stripe.redirectToCheckout({#}
-{#                    sessionId: data.id#}
-{#                })#}
-{#                    .then(function(result) {#}
-{#                        // If `redirectToCheckout` fails due to a browser or network#}
-{#                        // error, you should display the localized error message to your#}
-{#                        // customer using `result.error.message`.#}
-{#                    });#}
-{#            });#}
-{#    });#}
-{#</script>#}

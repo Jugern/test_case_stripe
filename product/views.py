@@ -81,8 +81,8 @@ class BuyTovar(View):
 
 
 class BuyList(View):
+
     def get(self, request, *args, **kwargs):
-        print(self.kwargs)
         client = Order.objects.get(user_id=self.kwargs["id"])
         allItem = [{
             'price_data': {
@@ -96,7 +96,6 @@ class BuyList(View):
         } for i in client.item_list.all()]
 
         domain = settings.ALLOWED_HOSTS[0]
-        print(allItem)
         if settings.DEBUG:
             domain = "http://127.0.0.1:8000"
 
@@ -118,10 +117,8 @@ class AddItem(TemplateView):
     def get(self, request, *args, **kwargs):
         item = Item.objects.get(id=kwargs['pk'])
         user_id = request.COOKIES.get('user_id')
-        print(kwargs['pk'])
         try:
             client = Order.objects.get(user_id=user_id)
-            print(client.item_list.filter(id=kwargs['pk']))
             if client.item_list.filter(id=kwargs['pk']).exists():
                 return JsonResponse({
                     'otvet': 'Товар уже есть в корзине',

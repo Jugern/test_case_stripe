@@ -11,16 +11,16 @@
         <div id="checkout" class="row">
             {% csrf_token %}
             {% for item in items %}
-                <section class="d-flex justify-content-center">
+                <section class="col-xl-4 d-flex justify-content-center">
                     <div class="product">
-                        <img class="" src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
+                        <img class="h-50" src="https://i.imgur.com/EHyR2nP.png" alt="The cover of Stubborn Attachments" />
                         <div class="description">
                             <h3>{{ item.name }}</h3>
                             <h5 class="col">${{ item.price }}</h5>
                             <form action="{% url 'item-pk' item.id %}">
-                                <input class="col" type="submit" value="Описание">
+                                <input class="col rounded-3" type="submit" value="Описание">
                             </form>
-                            <button class="col" type="submit" id="order-button" value="{{ item.id }}">Добавить в Заказ</button>
+                            <button class="col rounded-3" type="submit" id="order-button" value="{{ item.id }}">Добавить в Заказ</button>
                         </div>
                     </div>
                 </section>
