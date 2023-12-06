@@ -20,4 +20,4 @@ function sendRequestWithCookies() {
 }
 
 sendRequestWithCookies()
-setInterval(sendRequestWithCookies, 1000);
+setInterval(sendRequestWithCookies, 2000);

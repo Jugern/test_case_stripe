@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,13 +20,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
+if "debug" in os.environ:
+    SECRET_KEY = os.environ.get('secret_key')
+    DEBUG = os.environ.get('debug')
+    ALLOWED_HOSTS = os.environ.get('allowed_hosts').split(',')
+else:
+    load_dotenv()
+    SECRET_KEY = os.getenv('secret_key')
+    DEBUG = os.getenv('debug')
+    ALLOWED_HOSTS = os.getenv('allowed_hosts').split(',')
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-q!=8*!iwa0g26pfw1fzpdpc-kjp_i=_gw@b*-#$%jkwl!)un=o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -127,5 +134,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STRIPE_SECRET_KEY = 'sk_test_51OJgIiCYUiO8WnGX2o05XH7aeCVfYsDpJXKCQeY2YBdA9e13yl5opFkPVPWgpV84y6PHPxDmAoxtd4o1IUM51IgI00meTflKLi'
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51OJgIiCYUiO8WnGXaiH78YuVftiJgCYI2d6iOXftCSoBEoMjyFUUaPtDt1537uVucRCviSlkw1Hhz1xWOV0bxK7c00ct0nmWr9'
+
+if 'stripe_publishable_key' in os.environ:
+    STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+    STRIPE_PUBLISHABLE_KEY = os.environ.get('stripe_publishable_key')
+else:
+    load_dotenv()
+    STRIPE_SECRET_KEY = os.getenv('STRIPE_SECRET_KEY')
+    STRIPE_PUBLISHABLE_KEY = os.getenv('stripe_publishable_key')
+
